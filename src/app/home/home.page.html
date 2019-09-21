@@ -1,14 +1,47 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
+  <ion-toolbar mode="ios">
+    <ion-title mode="ios">
+      Cambio de moneda
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+<ion-content mode="ios">
+  <ion-list>
+    <ion-item *ngIf="usuariobool">
+      <ion-label color="primary">Ingreso</ion-label>
+      <ion-button color="success" (click)="ingreso()">Ingreso</ion-button>
+    </ion-item>
+
+
+    <ion-item *ngIf="!usuariobool">
+      <ion-label color="primary">{{email}}</ion-label>
+      <ion-button color="success" (click)="ingreso()">Cerrar sesion</ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked" color="primary" mode="ios">Moneda de origen</ion-label>
+      <ion-select mode="ios" placeholder="Seleccione uno" [(ngModel)]="origen" (ionChange)="hola('origen')">
+        <ion-select-option *ngFor="let moneda of monedas" value="{{moneda}}">{{moneda}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="origenbool">
+      <ion-label position="stacked" color="primary" mode="ios">Moneda de Destino</ion-label>
+      <ion-select mode="ios" placeholder="Seleccione uno" [(ngModel)]="destino" (ionChange)="hola('destino')">
+        <ion-select-option *ngFor="let moneda of monedas" value="{{moneda}}">{{moneda}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="destinobool">
+      <ion-label position="stacked" color="primary" mode="ios">valor</ion-label>
+      <ion-input type="number" [(ngModel)]="valor" mode="ios" (ionChange)="hola('valor')"></ion-input>
+    </ion-item>
+    <ion-button *ngIf="valorbool" color="danger" shape="round" expand="block" (click)="enviar()" mode="ios">Cambiar
+    </ion-button>
+
+    <ion-text centre color="black">
+      <h1>{{resultado}}</h1>
+    </ion-text>
+  </ion-list>
 </ion-content>

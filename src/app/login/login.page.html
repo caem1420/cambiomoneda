@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ingreso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" position="stacked">Email</ion-label>
+      <ion-input type="email" autofocus="true" inputmode="email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">Contraseña</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+
+    <ion-button fill="clear" color="danger" expand="full">Olvido contraseña?</ion-button>
+
+    <br>
+
+    <ion-button expand="block" shape="round" color="primary" (click)="ingresar()">Ingresar</ion-button>
+    <ion-button expand="full" shape="round" color="success" (click)="registro()">Registrarse</ion-button>
+
+  </ion-list>
+
+
+</ion-content>
