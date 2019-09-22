@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
-import {DatosService} from '../../app/datos.service'
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+
+import { DatosService } from '../../app/datos.service'
 import { Storage } from '@ionic/storage';
+
+import { Observable } from 'rxjs';
 
 
 
@@ -26,21 +30,31 @@ export class HomePage {
   destinobool: boolean;
   valorbool: boolean;
 
-  constructor(public storage: Storage,public http: HttpClient, public alertController: AlertController, public enrutador:Router, public datos: DatosService) {
+  database: AngularFireList<any>
+
+
+  constructor(public db: AngularFireDatabase, public storage: Storage, public http: HttpClient, public alertController: AlertController, public enrutador: Router, public datos: DatosService) {
     this.origenbool = false;
     this.destinobool = false;
     this.valorbool = false;
 
-    if(this.storage.get("usuario") != undefined){
-      
-      this.storage.get("usuario").then(valor=>{
-        console.log(valor);
-        this.email = valor;
-      })
-    }else{
-      this.usuariobool = true;
+    this.database = db.list("registros");
+    
+    this.storage.get("usuario").then(valor => {
+      console.log(valor);
+      if (valor === null) {
+        this.usuariobool = true;
+        this.email = "anonimo"
+      } else {
+      this.email = valor;
+      console.log(this.database);
+      }
 
-    }
+    }).catch(error => {
+      console.log(error);
+    })
+
+
   }
 
   // tslint:disable-next-line: use-lifecycle-interface
@@ -50,12 +64,12 @@ export class HomePage {
       console.log(response);
     });
 
-    
 
-    
+
+
   }
 
-  hola(tipo) {
+  hola(tipo){
     switch (tipo) {
       case 'origen':
         this.origenbool = true;
@@ -75,7 +89,16 @@ export class HomePage {
       this.http.get('http://104.42.169.237:3000/?origen=' + this.origen + '&destino=' + this.destino + '&valor=' + this.valor)
         .subscribe(response => {
           this.resultado = response['RESULTADO'];
-          console.log(this.resultado);
+          console.log(this.resultado + "   " + this.email);
+
+          this.database.push({
+            usuario : this.email,
+            origen: this.origen,
+            destino: this.destino,
+            valor: this.valor,
+            resultado: this.resultado
+          })
+
         });
     } else {
       const alert = await this.alertController.create({
@@ -91,8 +114,14 @@ export class HomePage {
   }
 
 
-  ingreso(){
+  ingreso() {
     this.enrutador.navigateByUrl("/login")
+  }
+
+  cerrarsesion() {
+    this.storage.remove("usuario").then(okey => {
+      window.location.reload();
+    })
   }
 
 

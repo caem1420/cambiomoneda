@@ -19,7 +19,7 @@
 
     <ion-item>
       <ion-label color="primary" position="stacked">Confirmar Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="conpassword"></ion-input>
+      <ion-input type="password" (keydown)="registrokey($event)" [(ngModel)]="conpassword"></ion-input>
     </ion-item>
 
 

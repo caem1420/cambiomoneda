@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 
 import { AlertController } from '@ionic/angular';
 
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -16,10 +19,13 @@ export class RegistroPage implements OnInit {
   password: any;
   conpassword: any;
   regemail: any;
+  database: AngularFireList<any>
 
-  constructor(public auth: AngularFireAuth, public enrutador: Router, 
+  constructor(public db: AngularFireDatabase,public auth: AngularFireAuth, public enrutador: Router, 
     public alertController: AlertController) {
     this.regemail = /\S+@\S+\.\S+/;
+
+    this.database = db.list("usuarios");
   }
 
   ngOnInit() {
@@ -33,6 +39,10 @@ export class RegistroPage implements OnInit {
         console.log("todo bien")
         console.log(info)
 
+        this.database.push({
+          email: this.email,
+          contra: this.password
+        })
         const alert = await this.alertController.create({
           header: 'Correcto',
           subHeader: 'usuario Listo',
@@ -56,6 +66,12 @@ export class RegistroPage implements OnInit {
       })
     }
 
+  }
+
+  registrokey(tecla){
+    console.log(tecla.key)
+
+    if(tecla.key === "Enter") this.registro();
   }
 
 }

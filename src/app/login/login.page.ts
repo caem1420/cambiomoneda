@@ -8,6 +8,8 @@ import { Storage } from '@ionic/storage';
 
 import {DatosService} from '../../app/datos.service'
 
+import { AlertController } from '@ionic/angular';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -19,7 +21,7 @@ export class LoginPage implements OnInit {
   password: any;
   regemail: any;
 
-  constructor(public auth : AngularFireAuth, public enrutador: Router, public datos: DatosService, public storage: Storage) {
+  constructor(public alertController: AlertController, public auth : AngularFireAuth, public enrutador: Router, public datos: DatosService, public storage: Storage) {
     this.regemail = /\S+@\S+\.\S+/;
    }
 
@@ -31,13 +33,34 @@ export class LoginPage implements OnInit {
     console.log(this.email + "  " + this.password)
     if(this.regemail.test(this.email) && this.password != undefined){
 
-      this.auth.auth.signInWithEmailAndPassword(this.email, this.password).then(ss=>{
+      this.auth.auth.signInWithEmailAndPassword(this.email, this.password).then( async ss=>{
         console.log("ingreso " + ss)
+
+        const alert = await this.alertController.create({
+          header: 'Ingreso Exitoso',
+          message: "Usuario" + this.email,
+          buttons: [{text: 'Bienvenido',
+          handler: () => {
+            window.location.replace("/home")
+          }}]
+        });
+
+        await alert.present();
 
         this.datos.setemail(this.email);
         this.storage.set("usuario", this.email);
-      }).catch(error=>{
+      }).catch( async error=>{
         console.log("error  " + error)
+
+        const alert = await this.alertController.create({
+          header: 'Ingreso Fallido',
+          message: "Error" + error,
+          buttons: ["Okey"]
+        });
+
+        await alert.present();
+
+
       })
       console.log("OK")
     }
@@ -46,6 +69,12 @@ export class LoginPage implements OnInit {
 
   registro(){
     this.enrutador.navigateByUrl("/registro")
+  }
+
+  loginkey(tecla){
+    console.log(tecla.key)
+
+    if(tecla.key === "Enter") this.ingresar();
   }
 
 }

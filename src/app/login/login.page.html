@@ -14,7 +14,7 @@
 
     <ion-item>
       <ion-label color="primary" position="stacked">Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
+      <ion-input type="password"  (keydown)="loginkey($event)" [(ngModel)]="password"></ion-input>
     </ion-item>
 
     <ion-button fill="clear" color="danger" expand="full">Olvido contraseña?</ion-button>
