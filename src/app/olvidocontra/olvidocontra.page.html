@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Olvido Contraseña</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label color="primary" position="stacked">Email Registrado</ion-label>
+    <ion-input type="email" autofocus="true" inputmode="email" [(ngModel)]="email"></ion-input>
+  </ion-item>
+
+  <br>
+  <ion-button expand="block" shape="round" color="primary" (click)="olvido()">Reestablecer</ion-button>
+</ion-content>

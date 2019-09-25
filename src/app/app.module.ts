@@ -11,11 +11,18 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import {AngularFireDatabaseModule} from '@angular/fire/database'
 
+
 import { IonicStorageModule } from '@ionic/storage';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+
+//import * as PlotlyJS from 'plotly.js/dist/plotly.js';
+//import { PlotlyModule } from 'angular-plotly.js';
+
+
+//PlotlyModule.plotlyjs = PlotlyJS;
 
 export const datosfirebase = {
   production: false,
@@ -34,7 +41,7 @@ export const datosfirebase = {
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
     AngularFireModule.initializeApp(datosfirebase.firebase), AngularFireAuthModule,
-    AngularFireDatabaseModule, IonicStorageModule.forRoot()],
+    AngularFireDatabaseModule, IonicStorageModule.forRoot()], //PlotlyModule
   providers: [
     StatusBar,
     SplashScreen,
