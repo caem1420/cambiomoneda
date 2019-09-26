@@ -8,7 +8,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { DatosService } from '../../app/datos.service'
 import { Storage } from '@ionic/storage';
 
-import { Observable } from 'rxjs';
+//import { Observable } from 'rxjs';
 
 
 
@@ -61,6 +61,7 @@ export class HomePage {
   ngOnInit() {
     this.http.get('http://104.42.169.237:3000/?monedas=1').subscribe(response => {
       this.monedas = response;
+      this.datos.setmonedas(this.monedas);
       console.log(response);
     });
 

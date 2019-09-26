@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class DatosService {
 
   email: any;
+  monedas: any;
 
   constructor() { }
 
@@ -16,5 +17,13 @@ export class DatosService {
 
   getemail(){
     return this.email;
+  }
+
+  setmonedas(monedas){
+    this.monedas = monedas;
+  }
+
+  getmonedas(){
+    return this.monedas;
   }
 }

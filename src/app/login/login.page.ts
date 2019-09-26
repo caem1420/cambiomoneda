@@ -82,8 +82,6 @@ export class LoginPage implements OnInit {
   }
 
   loginkey(tecla) {
-    console.log(tecla.key)
-
     if (tecla.key === "Enter") this.ingresar();
   }
 
