@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
 
 
     if (this.email === "admin" && this.password === "admin") {
-
+      this.storage.set("usuario", this.email);
       this.enrutador.navigateByUrl("/informes");
 
     } else {
