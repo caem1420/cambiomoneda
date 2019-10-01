@@ -74,4 +74,9 @@ export class RegistroPage implements OnInit {
     if(tecla.key === "Enter") this.registro();
   }
 
+
+  ingresar(){
+    this.enrutador.navigateByUrl("/login")
+  }
+
 }

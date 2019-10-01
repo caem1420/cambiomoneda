@@ -59,7 +59,7 @@ export class HomePage {
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
-    this.http.get('http://104.42.169.237:3000/?monedas=1').subscribe(response => {
+    this.http.get('https://104.42.169.237:3000/?monedas=1').subscribe(response => {
       this.monedas = response;
       this.datos.setmonedas(this.monedas);
       console.log(response);
@@ -87,7 +87,7 @@ export class HomePage {
   async enviar() {
 
     if (this.origen !== undefined && this.destino !== undefined && this.valor !== undefined || this.valor !== null) {
-      this.http.get('http://104.42.169.237:3000/?origen=' + this.origen + '&destino=' + this.destino + '&valor=' + this.valor)
+      this.http.get('https://104.42.169.237:3000/?origen=' + this.origen + '&destino=' + this.destino + '&valor=' + this.valor)
         .subscribe(response => {
           this.resultado = response['RESULTADO'];
           console.log(this.resultado + "   " + this.email);
